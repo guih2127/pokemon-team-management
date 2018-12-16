@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import './css/AllPokemonList.css';
 
+
 class AllPokemonList extends Component {
     constructor() {
         super();
@@ -11,8 +12,6 @@ class AllPokemonList extends Component {
     }
 
     componentDidMount() {
-
-
         Axios.get('https://pokeapi.co/api/v2/pokemon/')
         .then(response => {
             let pokemons = response.data.results;
@@ -29,17 +28,15 @@ class AllPokemonList extends Component {
                     <table className="table table-hover">
                     <thead>
                         <tr className="title">
-                        <th scope="col">Nome</th>
-                        <th scope="col">Tipo</th>
                         <th scope="col">Número</th>
-                        <th scope="col">Sprite</th>
+                        <th scope="col">Nome</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.pokemons.map((pokemon, i) => 
                             <tr key={i}>
+                                <th scope="row">{i + 1}</th>
                                 <th scope="row">{pokemon.name}</th>
-                                <th scope="row"></th>
                             </tr>
                         )} 
                     </tbody>
