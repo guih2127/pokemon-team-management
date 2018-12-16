@@ -33,10 +33,10 @@ class AllPokemonList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.pokemons.map((pokemon, i) => 
+                        {this.state.pokemons.map((pokemon, i) =>
                             <tr key={i}>
                                 <th scope="row">{i + 1}</th>
-                                <th scope="row">{pokemon.name}</th>
+                                <th scope="row"><a href={"pokemon/" + (i + 1)}>{pokemon.name}</a></th>
                             </tr>
                         )} 
                     </tbody>
