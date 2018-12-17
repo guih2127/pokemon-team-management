@@ -9,6 +9,7 @@ class PokemonDetail extends Component {
         this.state = {
             pokemon: [],
             image: '',
+            types: [],
         };
     }
 
@@ -16,8 +17,14 @@ class PokemonDetail extends Component {
         Axios.get('https://pokeapi.co/api/v2/' + this.props.location.pathname + '/')
         .then(response => {
             const pokemon = response.data;
-            this.setState({pokemon: pokemon, image: pokemon.sprites.front_default})
-            console.log(this.state.sprites.front_default)
+            let types = pokemon.types.map(function(i) {return i.type.name})
+            this.setState(
+                {
+                    pokemon: pokemon, 
+                    image: pokemon.sprites.front_default,
+                    types: types,
+                })
+                console.log(this.state.types)
         })
     }
 
@@ -26,8 +33,24 @@ class PokemonDetail extends Component {
             <div>
                 <Navbar />
                 <div className="container">
-                    <h1># {this.state.pokemon.id} - {this.state.pokemon.name} <img src={this.state.image} />
+                <div className="name">
+                    <h1># {this.state.pokemon.id} - {this.state.pokemon.name} 
+                        <img alt="" src={this.state.image} />
                     </h1>
+                </div>
+                <div className="row">
+                    <div className="col-sm-4">
+                        <div className="types">
+                            <h3>Tipos</h3>
+                            <ul>
+                                {
+                                    this.state.types.map((type, i) =>
+                                        <li key={i}>{type}</li>
+                                    )}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         )   
