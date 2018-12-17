@@ -7,7 +7,8 @@ class PokemonDetail extends Component {
     constructor(props) {
         super();
         this.state = {
-            pokemon: []
+            pokemon: [],
+            image: '',
         };
     }
 
@@ -15,8 +16,8 @@ class PokemonDetail extends Component {
         Axios.get('https://pokeapi.co/api/v2/' + this.props.location.pathname + '/')
         .then(response => {
             const pokemon = response.data;
-            this.setState(pokemon)
-            console.log(pokemon)
+            this.setState({pokemon: pokemon, image: pokemon.sprites.front_default})
+            console.log(this.state.sprites.front_default)
         })
     }
 
@@ -25,7 +26,8 @@ class PokemonDetail extends Component {
             <div>
                 <Navbar />
                 <div className="container">
-                    <h1># {this.state.id} - {this.state.name}</h1>
+                    <h1># {this.state.pokemon.id} - {this.state.pokemon.name} <img src={this.state.image} />
+                    </h1>
                 </div>
             </div>
         )   
