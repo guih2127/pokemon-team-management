@@ -27,7 +27,7 @@ class PokemonDetail extends Component {
                     types: types,
                     stats: stats,
                 })
-            console.log(this.state.stats)
+            console.log(this.state.pokemon)
         })
     }
 
@@ -40,12 +40,13 @@ class PokemonDetail extends Component {
                     <h1># {this.state.pokemon.id} - {this.state.pokemon.name} 
                         <img alt="" src={this.state.image} />
                         {this.state.types.map((type, i) => 
-                            <span key={i}>{type}</span> 
+                            <span key={i}>- {type}</span> 
                         )}
                     </h1>
                     <div className="row">
                         <div className="col-sm-4">
                         <div className="stats">
+                        <h4>BASE STATS</h4>
                             <ul>
                                 {
                                     this.state.stats.map((stat, i) =>
