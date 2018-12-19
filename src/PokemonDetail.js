@@ -10,6 +10,7 @@ class PokemonDetail extends Component {
             pokemon: [],
             image: '',
             types: [],
+            stats: []
         };
     }
 
@@ -18,13 +19,15 @@ class PokemonDetail extends Component {
         .then(response => {
             const pokemon = response.data;
             let types = pokemon.types.map(function(i) {return i.type.name})
+            let stats = pokemon.stats.map(function(i) {return i})
             this.setState(
                 {
                     pokemon: pokemon, 
                     image: pokemon.sprites.front_default,
                     types: types,
+                    stats: stats,
                 })
-                console.log(this.state.types)
+            console.log(this.state.stats)
         })
     }
 
@@ -33,21 +36,23 @@ class PokemonDetail extends Component {
             <div>
                 <Navbar />
                 <div className="container">
-                <div className="name">
+                <div className="pokemon-info">
                     <h1># {this.state.pokemon.id} - {this.state.pokemon.name} 
                         <img alt="" src={this.state.image} />
+                        {this.state.types.map((type, i) => 
+                            <span key={i}>{type}</span> 
+                        )}
                     </h1>
-                </div>
-                <div className="row">
-                    <div className="col-sm-4">
-                        <div className="types">
-                            <h3>Tipos</h3>
+                    <div className="row">
+                        <div className="col-sm-4">
+                        <div className="stats">
                             <ul>
                                 {
-                                    this.state.types.map((type, i) =>
-                                        <li key={i}>{type}</li>
-                                    )}
-                            </ul>
+                                    this.state.stats.map((stat, i) =>
+                                    <li key={i}>{stat.stat.name} - {stat.base_stat}</li>
+                                )}   
+                            </ul>    
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,6 @@ class AllPokemonList extends Component {
             let pokemons = response.data.results;
             pokemons = pokemons.filter((pokemon, i) => i < 151);
             this.setState({ pokemons });
-            console.log(pokemons)
         })
     }
 
