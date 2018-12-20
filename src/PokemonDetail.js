@@ -10,7 +10,8 @@ class PokemonDetail extends Component {
             pokemon: [],
             image: '',
             types: [],
-            stats: []
+            stats: [],
+            moves: []
         };
     }
 
@@ -26,15 +27,15 @@ class PokemonDetail extends Component {
                     image: pokemon.sprites.front_default,
                     types: types,
                     stats: stats,
-                })
-            console.log(this.state.pokemon)
+                    moves: pokemon.moves
+            })
         })
     }
 
     render () {
         return (
             <div>
-                <Navbar />
+                <Navbar handleSearch={this.handleSearch} />
                 <div className="container">
                 <div className="pokemon-info">
                     <h1># {this.state.pokemon.id} - {this.state.pokemon.name} 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import './css/AllPokemonList.css';
+import Navbar from './Navbar';
 
 
 class AllPokemonList extends Component {
@@ -8,7 +9,14 @@ class AllPokemonList extends Component {
         super();
         this.state = {
             pokemons: [],
+            value: '',
         };
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e) {
+        this.setState({value: e.target.value});
     }
 
     componentDidMount() {
@@ -23,6 +31,7 @@ class AllPokemonList extends Component {
     render() {
         return(
             <div className="pokemonList">
+                <Navbar onChange={this.onChange} value={this.state.value} pokemons={this.state.pokemons} />
                 <div className="container">
                     <table className="table table-hover">
                     <thead>
