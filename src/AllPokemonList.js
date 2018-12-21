@@ -15,10 +15,6 @@ class AllPokemonList extends Component {
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange(e) {
-        this.setState({value: e.target.value});
-    }
-
     componentDidMount() {
         Axios.get('https://pokeapi.co/api/v2/pokemon/')
         .then(response => {
@@ -26,6 +22,11 @@ class AllPokemonList extends Component {
             pokemons = pokemons.filter((pokemon, i) => i < 151);
             this.setState({ pokemons });
         })
+    }
+
+    onChange(e) {
+        this.setState({value: e.target.value});
+        this.setState({pokemons:this.state.pokemons.filter(pokemon => pokemon.name.includes(e.target.value))})
     }
 
     render() {
