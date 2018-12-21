@@ -10,6 +10,7 @@ class AllPokemonList extends Component {
         this.state = {
             pokemons: [],
             value: '',
+            filtered: [],
         };
 
         this.onChange = this.onChange.bind(this);
@@ -19,20 +20,31 @@ class AllPokemonList extends Component {
         Axios.get('https://pokeapi.co/api/v2/pokemon/')
         .then(response => {
             let pokemons = response.data.results;
-            pokemons = pokemons.filter((pokemon, i) => i < 151);
-            this.setState({ pokemons });
+            pokemons = pokemons.filter((pokemon, i) => i < 151).map((pokemon, i) => ({ id: i + 1, name: pokemon.name }));
+            this.setState({ pokemons, filtered: pokemons });
+            console.log(this.state.pokemons)
         })
     }
 
+
     onChange(e) {
-        this.setState({value: e.target.value});
-        this.setState({pokemons:this.state.pokemons.filter(pokemon => pokemon.name.includes(e.target.value))})
+        this.setState({value: e.target.value}, this.filterPokemons);
+    }
+
+    filterPokemons() {
+        const { pokemons, value } = this.state;
+        this.setState({
+            filtered: value.length > 0 ? pokemons.filter(
+                (pokemon, i)  => pokemon.name.includes(value.toLowerCase())
+            ) : pokemons
+        });
     }
 
     render() {
+        const { value, pokemons } = this.state;
         return(
             <div className="pokemonList">
-                <Navbar onChange={this.onChange} value={this.state.value} pokemons={this.state.pokemons} />
+                <Navbar onChange={this.onChange} value={value} />
                 <div className="container">
                     <table className="table table-hover">
                     <thead>
@@ -42,10 +54,10 @@ class AllPokemonList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.pokemons.map((pokemon, i) =>
-                            <tr key={i}>
-                                <th scope="row">{i + 1}</th>
-                                <th scope="row"><a href={"pokemon/" + (i + 1)}>{pokemon.name}</a></th>
+                        {this.state.filtered.map((pokemon) =>
+                            <tr key={pokemon.id}>
+                                <th scope="row">{pokemon.id}</th>
+                                <th scope="row"><a href={"pokemon/" + (pokemon.id)}>{pokemon.name}</a></th>
                             </tr>
                         )} 
                     </tbody>

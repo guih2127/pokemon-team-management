@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Navbar extends Component {
     render() {
+        const { onChange, value } = this.props;
         return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <a className="navbar-brand" href="/">Pokémon Team Management</a>
@@ -24,7 +25,7 @@ class Navbar extends Component {
                     </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0">
-                        <input onChange={this.props.onChange} value={this.props.value} id="search_input" className="form-control mr-sm-2" type="text" placeholder="Search" />
+                        <input onChange={onChange} value={value} id="search_input" className="form-control mr-sm-2" type="text" placeholder="Search" />
                         <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
